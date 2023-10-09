@@ -1,11 +1,23 @@
+<div class="container">
 <h1 [innerText]="title"></h1>
 <h2 [innerText]="title2"></h2>
 <p>"{{paragraph}}" yayın tarihi {{date}}</p>
-<h3>Yapılacak işler</h3>
+
+<div>
+   <input type="text" name="" id="" class="form-control" #task>
+   <button (click)="addNewTask(task.value)" class="btn btn-primary">Yeni Görev ekle</button>
+</div>
+
+<h3>Yapılacak işler - ({{ getItemsCount() }}) </h3>
+<button class="btn " [ngClass]="showAllItems ? 'btn-success':'btn-warning'" (click)="filter()">{{buttonText}}</button>
 <div>
     <div *ngFor="let item of items">
-      <input type="checkbox" [(ngModel)]="item.isDone" name="" id="">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="item.isDone" name="" id="">
+
       <span [ngClass]="item.isDone ? 'green' :'red' " > {{item.name}}</span>
+      <span [innerText]="item.isDone ? '(yapıldı)':'(yapılmadı)'"></span>
      
     </div>
+
+</div>
 </div>
