@@ -9,4 +9,5 @@ import { projectCollection } from '../models/mocks/projects.mock';
 })
 export class ProjectListComponent {
     projects: Project[] = projectCollection
+    searchKey: string | undefined; 
 }
