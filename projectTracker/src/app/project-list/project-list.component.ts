@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from '../models/project.model';
 import { projectCollection } from '../models/mocks/projects.mock';
 import { ActivatedRoute } from '@angular/router';
+import { ProjectsService } from '../services/projects.service';
 
 @Component({
   selector: 'app-project-list',
@@ -10,23 +11,27 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProjectListComponent //implements OnInit  
 {
-  projects: Project[] = projectCollection
+  projects: Project[] = [];
   searchKey: string | undefined;
 
   constructor(
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private projectsService: ProjectsService
   ) { }
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(routeParam => {
-      console.log(routeParam['id']);
-      this.projects = projectCollection;
-      if (routeParam['id'] != undefined) {
-        this.projects = this.projects.filter(p => p.departmentId == routeParam['id'])
+    this.projectsService.getProjects()
+      .subscribe(data => {       
+        this.activeRoute.params.subscribe(routeParam => {
+          console.log(routeParam['id']);
+          this.projects = data;
+          if (routeParam['id'] != undefined) {
+            this.projects = this.projects.filter(p => p.departmentId == routeParam['id'])
 
-      }
-
-    });
+          }
+        })
+      })
+      ;
 
   }
 

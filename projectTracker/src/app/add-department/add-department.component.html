@@ -1,0 +1,11 @@
+<h3>Yeni Departman Ekle (Template)</h3>
+
+<form #newDepartment="ngForm" (ngSubmit)="submit(newDepartment)">
+    <label for="depName">Departman Adı</label>
+    <input #dept="ngModel" [(ngModel)]="department.name" type="text" class="form-control"  name="name" id="depName" required minlength="3"  >
+    <span  class="alert alert-danger form-control" *ngIf="dept.getError('required') && dept.invalid && dept.dirty">Departman adı belirtilmeli.</span>
+    <span class="alert alert-danger form-control" *ngIf="dept.getError('minlength') && dept.invalid">Departman adı en az 3 harf olmalı</span>
+    <button class="btn btn-danger" type="submit">Ekle</button>
+
+
+</form>
