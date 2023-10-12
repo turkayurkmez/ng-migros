@@ -20,7 +20,6 @@ export class AddDepartmentComponent {
       this.department = form.value;
       this.departmentService.createDepartment(this.department)
                             .subscribe(data=>console.log('Kaydedildi',data));
-
     }
   }
 }

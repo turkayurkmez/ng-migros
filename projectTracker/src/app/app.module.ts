@@ -9,9 +9,12 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { ProjectComponent } from './project/project.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { SearchPipe } from './pipes/search.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AddDepartmentComponent } from './add-department/add-department.component'
+import { AddDepartmentComponent } from './add-department/add-department.component';
+import { AddProjectComponent } from './add-project/add-project.component';
+import { LoginComponent } from './login/login.component'
+import { provideRouter } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,15 +25,20 @@ import { AddDepartmentComponent } from './add-department/add-department.componen
     ProjectComponent,
     TaskListComponent,
     SearchPipe,
-    AddDepartmentComponent
+    AddDepartmentComponent,
+    AddProjectComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
