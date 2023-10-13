@@ -1,6 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, filter, from, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, filter, from, map, of, tap } from 'rxjs';
 import { Product, ProductCollection } from './models/product.model';
+
+
+
+const subject = new BehaviorSubject(100);
+
+subject.subscribe(x=>console.log(x));
+subject.subscribe(console.log);
+subject.subscribe(console.log);
+
+subject.next(130);
+subject.next(150);
+subject.subscribe(console.log);
+subject.next(190);
+
+
 
 @Component({
   selector: 'app-root',
@@ -11,6 +26,10 @@ export class AppComponent implements OnInit {
   title = 'usingreactive';
 
   products: Observable<Product> = from(ProductCollection);
+  productList: Product[] = [];
+
+  
+
 
 
   constructor() {
@@ -45,9 +64,18 @@ export class AppComponent implements OnInit {
     this.products
       .pipe(map(value => {
         let discounted = value.discountedPrice = value.price * (1 - value.discountRate)
+        console.log("'map'in hesapladığı fiyat", discounted)
         return new Product(value.id, value.name, value.price, value.discountRate, discounted)
-      }))
-      .subscribe(data => console.log('Sadece bir product:', data));
+      }),
+        tap(data => console.log('burası tamalanmadan önce await öncesi', data))
+      )
+      .subscribe(data => {
+        console.log('Subscribe (tamamlandıktan - await sonrası):', data);
+        this.productList.push(data);
+
+      });
+
+
 
 
     //  this.products.pipe(
